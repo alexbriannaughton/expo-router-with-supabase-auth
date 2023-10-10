@@ -1,6 +1,4 @@
-import { Redirect, router } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { supabase } from './lib/supbase-client';
 

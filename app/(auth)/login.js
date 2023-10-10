@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, StyleSheet, View, TextInput, Button, Text } from 'react-native'
+import { Alert, StyleSheet, View, TextInput, Button } from 'react-native'
 import { supabase } from '../lib/supbase-client'
 import { Stack } from 'expo-router'
 import * as Linking from 'expo-linking'
