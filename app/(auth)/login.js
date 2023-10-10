@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Alert, StyleSheet, View, TextInput, Button, Text } from 'react-native'
 import { supabase } from '../lib/supbase-client'
 import { Stack } from 'expo-router'
+import * as Linking from 'expo-linking'
 
 export default function Auth() {
     const [email, setEmail] = useState('')
@@ -30,9 +31,24 @@ export default function Auth() {
         setLoading(false)
     }
 
+    async function resetPassword() {
+        const resetPasswordURL = Linking.createURL('')
+
+        console.log(resetPasswordURL)
+
+        const { data, error } = await supabase
+            .auth
+            .resetPasswordForEmail(
+                email,
+                { redirectTo: resetPasswordURL }
+            );
+        console.log('resetPassword data:', data)
+        console.log('resetPassword() error: ', error)
+    }
+
     return (
         <View style={styles.container}>
-            <Stack.Screen options={{headerShown: true, title: "Supabase Expo Router App adsf"}} />
+            <Stack.Screen options={{ headerShown: true, title: "Supabase Expo Router App adsf" }} />
             <View style={[styles.verticallySpaced, styles.mt20]}>
                 <TextInput
                     label="Email"
@@ -53,11 +69,24 @@ export default function Auth() {
                 />
             </View>
             <View style={[styles.verticallySpaced, styles.mt20]}>
-                <Button title="Sign In" disabled={loading} onPress={() => signInWithEmail()}>
+                <Button
+                    title="Sign In"
+                    disabled={loading}
+                    onPress={() => signInWithEmail()}>
                 </Button>
             </View>
             <View style={styles.verticallySpaced}>
-                <Button title='Sign Up' disabled={loading} onPress={() => signUpWithEmail()}>
+                <Button
+                    title='Sign Up'
+                    disabled={loading}
+                    onPress={() => signUpWithEmail()}>
+                </Button>
+            </View>
+            <View style={styles.verticallySpaced}>
+                <Button
+                    title='Forgot password?'
+                    disabled={loading}
+                    onPress={() => resetPassword()}>
                 </Button>
             </View>
         </View>

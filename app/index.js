@@ -11,8 +11,12 @@ export default function IndexPage() {
       if (session) router.replace("/(tabs)/home")
     })
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      if (session) router.replace("/(tabs)/home")
+    supabase.auth.onAuthStateChange((event, session) => {
+      console.log(event)
+      if (event === 'PASSWORD_RECOVERY') {
+        console.log('OMG')
+      }
+      else if (session) router.replace("/(tabs)/home")
       else router.replace("/(auth)/login")
     })
   }, [])
